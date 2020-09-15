@@ -4,6 +4,7 @@ using namespace std;
 
 void OJ()
 {
+    // will not work on online judge
     #ifndef ONLINE_JUDGE
         freopen("input.txt", "r", stdin);
         freopen("output.txt", "w", stdout);
