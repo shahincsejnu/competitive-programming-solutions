@@ -39,3 +39,41 @@ public:
         return flag;
     }
 };
+
+
+-----------DFS
+class Solution {
+public:
+    bool isBipartite(vector<vector<int>>& graph) {
+        int l = graph.size();
+        
+        vector<int> color(l, -1);
+        
+        for(int i = 0; i < l; i++){
+            if(color[i] == -1){
+                stack<int> st;
+                st.push(i);
+                color[i] = 0;
+                
+                while(!st.empty()){
+                    int u = st.top();
+                    st.pop();
+                    
+                    int sz = graph[u].size();
+                    
+                    for(int j = 0; j < sz; j++){
+                        int v = graph[u][j];
+                        
+                        if(color[v] == -1){
+                            st.push(v);
+                            color[v] = !color[u];
+                        }
+                        else if(color[v] == color[u]) return false;
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+};
