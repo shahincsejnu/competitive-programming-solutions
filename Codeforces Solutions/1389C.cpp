@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #define lli long long int
+#define fastio ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 using namespace std;
 
 void solve()
@@ -7,33 +8,38 @@ void solve()
     string s;
     cin >> s;
 
-    int n = s.size();
+    int sz = s.size(), mx = 0, cnt = 0;
+    map<char, int> mp;
 
-    map<char, int> mp1, mp2, mp;
+    for(int i = 0; i < sz; i++){
+        mp[s[i]]++;
 
-    for(int i = 1; i <= n; i += 2) mp1[s[i-1]]++;
-    for(int i = 2; i <= n; i += 2) mp2[s[i-1]]++;
-    for(int i = 0; i < n; i++) mp[s[i]]++;
+        mx = max(mx, mp[s[i]]);
+    }
 
-    int ans = 0, mx = 0, ans2 = 0;
+    for(char i = '0'; i <= '9'; i++){
+        for(char j = '0'; j <= '9'; j++){
+            if(i == j) continue;
+            cnt = 0;
 
-    for(auto it: mp1) mx = max(mx, it.second);
-    ans = mx;
-    mx = 0;
-    for(auto it: mp2) mx = max(mx, it.second);
-    ans += mx;
+            int temp = 0;
+            for(int k = 0; k < sz; k++){
+                if(s[k] == i && temp == 0){
+                    cnt++;
+                    temp = 1;
+                }
+                else if(s[k] == j && temp == 1){
+                    cnt++;
+                    temp = 0;
+                }
+            }
 
-    for(auto it: mp) ans2 = max(ans2, it.second);
+            if(temp) cnt--;
+            mx = max(mx, cnt);
+        }
+    }
 
-    int res;
-
-    if(n%2 == 0) res = n - ans;
-    else res = n - ans2;
-
-    if(res )
-
-    if(n%2 == 0) cout << n-ans << "\n";
-    else cout << n - ans2 << "\n";
+    cout << sz - mx << "\n";
 }
 
 int main()
@@ -45,4 +51,3 @@ int main()
 
     return 0;
 }
-
